@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +17,13 @@
             --gray-dark: #475569;
             --white: #ffffff;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             color: var(--text);
@@ -30,20 +31,20 @@
             overflow: hidden;
             height: 100vh;
         }
-        
+
         .presentation-container {
             display: flex;
             height: 100vh;
             position: relative;
         }
-        
+
         .slides-container {
             flex: 1;
             height: 100%;
             position: relative;
             overflow: hidden;
         }
-        
+
         .slide {
             position: absolute;
             top: 0;
@@ -57,12 +58,12 @@
             transition: opacity 0.4s ease;
             overflow-y: auto;
         }
-        
+
         .slide.active {
             opacity: 1;
             z-index: 1;
         }
-        
+
         .slide-content {
             max-width: 90%;
             margin: 0 auto;
@@ -70,51 +71,54 @@
             height: 100%;
             overflow-y: auto;
         }
-        
+
         h1 {
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 1.5rem;
         }
-        
+
         h2 {
             font-size: 1.8rem;
             color: var(--primary-dark);
             margin: 1.8rem 0 1rem;
         }
-        
+
         h3 {
             font-size: 1.4rem;
             color: var(--secondary);
             margin: 1.5rem 0 0.8rem;
         }
-        
-        p, li {
+
+        p,
+        li {
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 0.8rem;
         }
-        
+
         .highlight {
             font-weight: bold;
             color: var(--secondary);
         }
-        
-        ul, ol {
+
+        ul,
+        ol {
             margin-left: 1.5rem;
             margin-bottom: 1.5rem;
         }
-        
+
         li {
             margin-bottom: 0.5rem;
         }
-        
+
         .image-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             margin: 1.5rem 0;
         }
-        
+
         .image-container img {
             max-width: 100%;
             max-height: 50vh;
@@ -122,29 +126,54 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .image-caption {
+            font-size: 0.9rem;
+            font-style: italic;
+            text-align: center;
+            margin-top: 0.8rem;
+            margin-bottom: 0.3rem;
+            max-width: 85%;
+        }
+
+        .image-source {
+            font-size: 0.8rem;
+            color: var(--gray-dark);
+            text-align: center;
+            margin-top: 0.2rem;
+        }
+
+        .image-source a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .image-source a:hover {
+            text-decoration: underline;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
         }
-        
+
         th {
             background-color: var(--primary);
             color: white;
             padding: 0.8rem;
             text-align: left;
         }
-        
+
         td {
             padding: 0.8rem;
             border: 1px solid var(--gray-light);
         }
-        
+
         tr:nth-child(even) {
             background-color: var(--gray-light);
         }
-        
+
         .navigation {
             position: fixed;
             bottom: 2rem;
@@ -153,7 +182,7 @@
             gap: 1rem;
             z-index: 100;
         }
-        
+
         .nav-btn {
             background-color: var(--primary);
             color: white;
@@ -166,11 +195,11 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: background-color 0.2s;
         }
-        
+
         .nav-btn:hover {
             background-color: var(--primary-dark);
         }
-        
+
         .progress-bar {
             position: fixed;
             top: 0;
@@ -180,7 +209,7 @@
             z-index: 100;
             transition: width 0.3s ease;
         }
-        
+
         .slide-indicator {
             position: fixed;
             bottom: 2rem;
@@ -190,7 +219,7 @@
             gap: 0.5rem;
             z-index: 100;
         }
-        
+
         .dot {
             width: 10px;
             height: 10px;
@@ -198,149 +227,191 @@
             background-color: var(--gray);
             cursor: pointer;
         }
-        
+
         .dot.active {
             background-color: var(--primary);
         }
-        
+
         footer {
             margin-top: auto;
             padding-top: 2rem;
             font-size: 0.8rem;
             color: var(--gray-dark);
         }
-        
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8rem;
             }
-            
+
             h2 {
                 font-size: 1.4rem;
             }
-            
+
             h3 {
                 font-size: 1.2rem;
             }
-            
-            p, li {
+
+            p,
+            li {
                 font-size: 1rem;
             }
-            
+
             .slide {
                 padding: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="presentation-container">
         <div class="progress-bar" id="progressBar"></div>
-        
+
         <div class="slides-container" id="slidesContainer">
             <!-- Slide 1: Title -->
             <div class="slide active" id="slide1">
                 <div class="slide-content">
                     <h1>Ahaia – AI-Powered Personalized Learning Revolution</h1>
                     <div class="image-container">
-                        <img src="/api/placeholder/800/400" alt="Ahaia Logo and Concept" />
+                        <img src="https://blog.mathspace.co/content/images/2019/02/0-TsMW4cGHg3FEzeXa.png"
+                            alt="Ahaia AI Knowledge Network" style="max-height: 40vh;" />
                     </div>
                     <h2>Democratizing Quality Education Through AI</h2>
                     <p>The future of personalized learning is here.</p>
                 </div>
             </div>
-            
+
             <!-- Slide 2: The Problem -->
             <div class="slide" id="slide2">
                 <div class="slide-content">
                     <h1>The Problem: One-Size-Fits-All Education Fails Learners</h1>
                     <ul>
-                        <li><span class="highlight">Low Engagement & Completion:</span> Average MOOC completion rates hover at just <span class="highlight">5–15%</span>, indicating static, passive content isn't working</li>
-                        <li><span class="highlight">Ineffective Personalization:</span> Platforms like Duolingo offer superficial adaptation but <span class="highlight">won't get learners to true proficiency</span> on their own</li>
-                        <li><span class="highlight">Information Overload:</span> Learners face content that's either too easy (causing boredom) or too difficult (causing frustration)</li>
-                        <li><span class="highlight">AI Tutors as Crutches:</span> Generic AI tutors like ChatGPT provide answers but <span class="highlight">hinder true learning</span> – students scored <span class="highlight">17% worse on tests</span> when using them</li>
+                        <li><span class="highlight">Low Engagement & Completion:</span> Average MOOC completion rates
+                            hover at just <span class="highlight">5–15%</span>, indicating static, passive content isn't
+                            working</li>
+                        <li><span class="highlight">Ineffective Personalization:</span> Platforms like Duolingo offer
+                            superficial adaptation but <span class="highlight">won't get learners to true
+                                proficiency</span> on their own</li>
+                        <li><span class="highlight">Information Overload:</span> Learners face content that's either too
+                            easy (causing boredom) or too difficult (causing frustration)</li>
+                        <li><span class="highlight">AI Tutors as Crutches:</span> Generic AI tutors like ChatGPT provide
+                            answers but <span class="highlight">hinder true learning</span> – students scored <span
+                                class="highlight">17% worse on tests</span> when using them</li>
                     </ul>
-                    <p>Current platforms either <em>engage but don't educate deeply</em>, or <em>educate but don't engage</em>.</p>
+                    <p>Current platforms either <em>engage but don't educate deeply</em>, or <em>educate but don't
+                            engage</em>.</p>
                 </div>
             </div>
-            
+
             <!-- Slide 3: Market Opportunity -->
             <div class="slide" id="slide3">
                 <div class="slide-content">
                     <h1>Market Opportunity: The Time is Now</h1>
                     <ul>
-                        <li><span class="highlight">Explosive Growth:</span> AI-in-education market projected to soar from <span class="highlight">$3.43B in 2023 to $54.5B by 2032</span> (36% CAGR)</li>
-                        <li><span class="highlight">Increasing Demand:</span> Post-pandemic shift to digital learning has created appetite for better solutions</li>
-                        <li><span class="highlight">Generation Z Expectations:</span> Today's learners crave dynamic, short-form content similar to social media formats</li>
-                        <li><span class="highlight">Clear Gap:</span> Current platforms either engage but don't educate deeply, or educate but don't engage</li>
+                        <li><span class="highlight">Explosive Growth:</span> AI-in-education market projected to soar
+                            from <span class="highlight">$3.43B in 2023 to $54.5B by 2032</span> (36% CAGR)</li>
+                        <li><span class="highlight">Increasing Demand:</span> Post-pandemic shift to digital learning
+                            has created appetite for better solutions</li>
+                        <li><span class="highlight">Generation Z Expectations:</span> Today's learners crave dynamic,
+                            short-form content similar to social media formats</li>
+                        <li><span class="highlight">Clear Gap:</span> Current platforms either engage but don't educate
+                            deeply, or educate but don't engage</li>
                     </ul>
                     <div class="image-container">
-                        <img src="/api/placeholder/800/400" alt="AI in Education Market Growth Chart" />
+                        <img src="https://www.researchandmarkets.com/content-images/2255/2255925/1/ai-in-education-market.png"
+                            alt="AI in Education Market Growth Chart" />
+                        <p class="image-caption">AI in Education Market is forecast to explode in size, reflecting
+                            strong demand for personalized, tech-driven learning.</p>
+                        <p class="image-source">Source: <a
+                                href="https://www.globenewswire.com/news-release/2024/12/13/2996850/28124/en/AI-in-Education-Market-Trends-and-Revenue-Forecast-2024-2032-by-Component-Application-End-User-and-Country-with-Detailed-Company-Analysis.html"
+                                target="_blank">Global News Wire (2024)</a></p>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 4: Solution Part 1 -->
             <div class="slide" id="slide4">
                 <div class="slide-content">
                     <h1>Ahaia's Solution: The AI Learning Coach</h1>
                     <h2>1. AI-Driven Knowledge Maps</h2>
                     <ul>
-                        <li>Comprehensive <span class="highlight">knowledge graph</span> functions like a tutor's brain – mapping every concept and prerequisite relationship</li>
-                        <li>System <span class="highlight">pinpoints each learner's knowledge state</span> – diagnosing mastered concepts and identifying gaps</li>
-                        <li>Interactive visualization gives learners a clear view of their progress and learning journey</li>
+                        <li>Comprehensive <span class="highlight">knowledge graph</span> functions like a tutor's brain
+                            – mapping every concept and prerequisite relationship</li>
+                        <li>System <span class="highlight">pinpoints each learner's knowledge state</span> – diagnosing
+                            mastered concepts and identifying gaps</li>
+                        <li>Interactive visualization gives learners a clear view of their progress and learning journey
+                        </li>
                     </ul>
                     <div class="image-container">
-                        <img src="/api/placeholder/800/400" alt="Knowledge Map Visualization" />
+                        <img src="https://blog.mathspace.co/content/images/2019/02/0-TsMW4cGHg3FEzeXa.png"
+                            alt="Knowledge Map Visualization" />
+                        <p class="image-caption">Illustrative knowledge map: Each node (blue/orange) is a concept, and
+                            arrows show prerequisite pathways. Ahaia uses maps like this to chart individualized
+                            learning routes.</p>
+                        <p class="image-source">Source: <a
+                                href="https://blog.mathspace.co/what-is-adaptive-learning-f189e2bfe597/"
+                                target="_blank">Mathspace Blog (2023)</a></p>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 5: Solution Part 2 -->
             <div class="slide" id="slide5">
                 <div class="slide-content">
                     <h1>Ahaia's Solution: The AI Learning Coach</h1>
                     <h2>2. Adaptive Learning Paths</h2>
                     <ul>
-                        <li>Dynamic construction of <span class="highlight">tailored learning sequences</span> – perfectly paced for each individual</li>
-                        <li>Path updates in real-time as you progress – unlocking the next concept precisely when you're ready</li>
-                        <li>Eliminates wasted time on already-mastered material and prevents learners from getting stuck</li>
+                        <li>Dynamic construction of <span class="highlight">tailored learning sequences</span> –
+                            perfectly paced for each individual</li>
+                        <li>Path updates in real-time as you progress – unlocking the next concept precisely when you're
+                            ready</li>
+                        <li>Eliminates wasted time on already-mastered material and prevents learners from getting stuck
+                        </li>
                     </ul>
                     <h2>3. Active, Engaging Learning Format</h2>
                     <ul>
-                        <li><span class="highlight">Gamified Short-Form Content:</span> Lesson previews appear like social media "Reels" – quick, visually rich, and interactive</li>
-                        <li><span class="highlight">Real-Time Feedback:</span> AI provides hints and personalized guidance as you learn</li>
-                        <li><span class="highlight">Micro-Challenges:</span> Hands-on exercises target specific weaknesses, adapting difficulty on the fly</li>
-                        <li><span class="highlight">Meaningful Gamification:</span> Points, streaks, and rewards tied to actual learning progress, not just activity</li>
+                        <li><span class="highlight">Gamified Short-Form Content:</span> Lesson previews appear like
+                            social media "Reels" – quick, visually rich, and interactive</li>
+                        <li><span class="highlight">Real-Time Feedback:</span> AI provides hints and personalized
+                            guidance as you learn</li>
+                        <li><span class="highlight">Micro-Challenges:</span> Hands-on exercises target specific
+                            weaknesses, adapting difficulty on the fly</li>
+                        <li><span class="highlight">Meaningful Gamification:</span> Points, streaks, and rewards tied to
+                            actual learning progress, not just activity</li>
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Slide 6: Technology -->
             <div class="slide" id="slide6">
                 <div class="slide-content">
                     <h1>Our Unique Technology Edge</h1>
                     <h2>Generative + Mastery-Based AI</h2>
                     <ul>
-                        <li>Combines <span class="highlight">generative AI</span> (for rich explanations and conversational tutoring) with <span class="highlight">mastery-based progression</span></li>
+                        <li>Combines <span class="highlight">generative AI</span> (for rich explanations and
+                            conversational tutoring) with <span class="highlight">mastery-based progression</span></li>
                         <li>Unlike ChatGPT, Ahaia maintains persistent memory of your learning journey</li>
-                        <li>Personalized content generation transforms any material into engaging, digestible segments</li>
+                        <li>Personalized content generation transforms any material into engaging, digestible segments
+                        </li>
                     </ul>
                     <h2>Whole-Learner Focus</h2>
                     <ul>
                         <li>AI Coach addresses motivation and learning habits, not just knowledge acquisition</li>
                         <li>Smart gamification rewards meaningful progress on personal goals</li>
-                        <li>Encouragement and additional resources provided at frustration points, not mere repetition</li>
+                        <li>Encouragement and additional resources provided at frustration points, not mere repetition
+                        </li>
                     </ul>
                     <h2>Personal Tutor at Scale</h2>
                     <ul>
-                        <li>Delivers the <span class="highlight">holy grail of one-on-one tutoring for everyone</span></li>
+                        <li>Delivers the <span class="highlight">holy grail of one-on-one tutoring for everyone</span>
+                        </li>
                         <li>High-resolution learner models create truly individualized experiences</li>
                         <li>Proprietary knowledge mapping creates a defensible technological moat</li>
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Slide 7: Competitive Landscape -->
             <div class="slide" id="slide7">
                 <div class="slide-content">
@@ -383,7 +454,7 @@
                     </table>
                 </div>
             </div>
-            
+
             <!-- Slide 8: Monetization -->
             <div class="slide" id="slide8">
                 <div class="slide-content">
@@ -392,13 +463,16 @@
                     <ul>
                         <li>Free tier with core functionality to build user base</li>
                         <li>Premium upgrades ($10-15/month): advanced AI tutoring, analytics, specialized tracks</li>
-                        <li><span class="highlight">Proven model:</span> Duolingo converted 8% of 100M users to paying subscribers, generating <span class="highlight">$531M revenue in 2023</span></li>
+                        <li><span class="highlight">Proven model:</span> Duolingo converted 8% of 100M users to paying
+                            subscribers, generating <span class="highlight">$531M revenue in 2023</span></li>
                     </ul>
                     <h2>2. SaaS B2B (Enterprise & Education)</h2>
                     <ul>
                         <li>Per-seat or annual licenses for schools, universities, and corporate training</li>
                         <li>Custom knowledge maps for specific curricula or training programs</li>
-                        <li><span class="highlight">Market evidence:</span> Coursera's enterprise segment grew 18% YoY to <span class="highlight">1,612 customers in 2024</span>, contributing $238M with 69% gross margins</li>
+                        <li><span class="highlight">Market evidence:</span> Coursera's enterprise segment grew 18% YoY
+                            to <span class="highlight">1,612 customers in 2024</span>, contributing $238M with 69% gross
+                            margins</li>
                     </ul>
                     <h2>3. Educational Partnerships</h2>
                     <ul>
@@ -408,7 +482,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Slide 9: Go-to-Market -->
             <div class="slide" id="slide9">
                 <div class="slide-content">
@@ -421,9 +495,11 @@
                     </ul>
                     <h2>2. SEO-Driven Content</h2>
                     <ul>
-                        <li>Rich library of learning resources optimized for search terms like "best way to learn calculus"</li>
+                        <li>Rich library of learning resources optimized for search terms like "best way to learn
+                            calculus"</li>
                         <li>Community Q&A forums generating long-tail SEO content</li>
-                        <li>Demonstrated success in EdTech – driving organic traffic at fraction of paid acquisition cost</li>
+                        <li>Demonstrated success in EdTech – driving organic traffic at fraction of paid acquisition
+                            cost</li>
                     </ul>
                     <h2>3. Viral Growth</h2>
                     <ul>
@@ -433,80 +509,96 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Slide 10: Traction & Roadmap -->
-            <div class="slide" id="slide10">
+            <!-- <div class="slide" id="slide10">
                 <div class="slide-content">
                     <h1>Traction & Roadmap</h1>
                     <h2>Current Traction:</h2>
                     <ul>
-                        <li>Beta users showing <span class="highlight">30% more learning time</span> and <span class="highlight">20% improved assessment scores</span></li>
+                        <li>Beta users showing <span class="highlight">30% more learning time</span> and <span
+                                class="highlight">20% improved assessment scores</span></li>
                         <li>MOU secured with local college for fall semester pilot</li>
                         <li>Growing waitlist with zero marketing spend</li>
                     </ul>
                     <h2>Development Milestones:</h2>
                     <ul>
-                        <li><span class="highlight">Q1-Q2:</span> Public beta focusing on core subject (math), implement referral system</li>
-                        <li><span class="highlight">Q3:</span> Expand to 3 subjects, release mobile app, enhance gamification features</li>
-                        <li><span class="highlight">Q4:</span> Onboard first B2B clients, build admin dashboards for institutions</li>
-                        <li><span class="highlight">Year 2:</span> Scale to 100K+ users, 10+ enterprise clients, multiple subject domains</li>
+                        <li><span class="highlight">Q1-Q2:</span> Public beta focusing on core subject (math), implement
+                            referral system</li>
+                        <li><span class="highlight">Q3:</span> Expand to 3 subjects, release mobile app, enhance
+                            gamification features</li>
+                        <li><span class="highlight">Q4:</span> Onboard first B2B clients, build admin dashboards for
+                            institutions</li>
+                        <li><span class="highlight">Year 2:</span> Scale to 100K+ users, 10+ enterprise clients,
+                            multiple subject domains</li>
                     </ul>
                 </div>
-            </div>
-            
+            </div> -->
+
             <!-- Slide 11: Why Ahaia Will Win -->
             <div class="slide" id="slide11">
                 <div class="slide-content">
                     <h1>Why Ahaia Will Win</h1>
                     <h2>1. Superior Learning Outcomes Drive Viral Growth</h2>
                     <p>Real success stories create powerful word-of-mouth</p>
-                    
+
                     <h2>2. Scalable Tech Moat</h2>
-                    <p>Our knowledge map system improves with usage, creating a proprietary database of learning patterns</p>
-                    
+                    <p>Our knowledge map system improves with usage, creating a proprietary database of learning
+                        patterns</p>
+
                     <h2>3. Multiple Revenue Streams</h2>
                     <p>Balanced B2C and B2B approach creates stable, diversified income</p>
-                    
+
                     <h2>4. Perfect Timing</h2>
                     <p>Convergence of AI maturity, acceptance of EdTech, and demand for personalized learning</p>
                 </div>
             </div>
-            
+
             <!-- Slide 12: Vision -->
             <div class="slide" id="slide12">
                 <div class="slide-content">
                     <h1>Vision: Democratizing Quality Education</h1>
-                    <p>Ahaia transforms education by providing every learner with a personal AI mentor – making high-quality, adaptive learning accessible to anyone with an internet connection.</p>
-                    <p>We're building a platform that can span lifelong learning, from K-12 through professional development.</p>
-                    
+                    <p>Ahaia transforms education by providing every learner with a personal AI mentor – making
+                        high-quality, adaptive learning accessible to anyone with an internet connection.</p>
+                    <p>We're building a platform that can span lifelong learning, from K-12 through professional
+                        development.</p>
+
                     <div class="image-container">
-                        <img src="/api/placeholder/800/400" alt="Vision Illustration" />
+                        <img src="https://www.researchandmarkets.com/content-images/2255/2255925/1/ai-in-education-market.png"
+                            alt="AI in Education Market Vision" />
+                        <p class="image-caption">The education market transformation that Ahaia is uniquely positioned
+                            to capture.</p>
                     </div>
-                    
-                    <h2><span class="highlight">Join us in building the future of education</span> – where learning is personalized, engaging, and effective for everyone.</h2>
-                    
+
+                    <h2><span class="highlight">Join us in building the future of education</span> – where learning is
+                        personalized, engaging, and effective for everyone.</h2>
+
                     <footer>
                         <p><em>References:</em></p>
                         <ol>
-                            <li>"AI in Education Market Trends and Revenue Forecast 2024-2032," Global News Wire, 2024</li>
-                            <li>"What is adaptive learning?," Mathspace Blog, 2023</li>
-                            <li>"Duolingo Statistics for 2024," Expanded Ramblings, 2024</li>
+                            <li>"<a href="https://www.globenewswire.com/news-release/2024/12/13/2996850/28124/en/AI-in-Education-Market-Trends-and-Revenue-Forecast-2024-2032-by-Component-Application-End-User-and-Country-with-Detailed-Company-Analysis.html"
+                                    target="_blank">AI in Education Market Trends and Revenue Forecast 2024-2032</a>,"
+                                Global News Wire, 2024</li>
+                            <li>"<a href="https://blog.mathspace.co/what-is-adaptive-learning-f189e2bfe597/"
+                                    target="_blank">What is adaptive learning?</a>," Mathspace Blog, 2023</li>
+                            <li>"<a href="https://expandedramblings.com/index.php/duolingo-facts-statistics/#:~:text=Duolingo%20Revenue%20Totals"
+                                    target="_blank">Statistics for 2024</a>," Expanded Ramblings, 2024</li>
                         </ol>
                     </footer>
                 </div>
             </div>
         </div>
-        
+
         <div class="navigation">
             <button class="nav-btn" id="prevBtn">Previous</button>
             <button class="nav-btn" id="nextBtn">Next</button>
         </div>
-        
+
         <div class="slide-indicator" id="slideIndicator"></div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const slidesContainer = document.getElementById('slidesContainer');
             const slides = Array.from(document.querySelectorAll('.slide'));
             const totalSlides = slides.length;
@@ -514,12 +606,12 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const slideIndicator = document.getElementById('slideIndicator');
-            
+
             let currentSlideIndex = 0;
-            
+
             // Initialize progress bar
             updateProgressBar();
-            
+
             // Create slide indicator dots
             slides.forEach((_, index) => {
                 const dot = document.createElement('div');
@@ -528,20 +620,20 @@
                 dot.addEventListener('click', () => goToSlide(index));
                 slideIndicator.appendChild(dot);
             });
-            
+
             // Event listeners
             prevBtn.addEventListener('click', () => {
                 if (currentSlideIndex > 0) {
                     goToSlide(currentSlideIndex - 1);
                 }
             });
-            
+
             nextBtn.addEventListener('click', () => {
                 if (currentSlideIndex < totalSlides - 1) {
                     goToSlide(currentSlideIndex + 1);
                 }
             });
-            
+
             // Keyboard navigation
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowRight' || e.key === ' ') {
@@ -554,31 +646,31 @@
                     }
                 }
             });
-            
+
             // Functions
             function goToSlide(index) {
                 slides.forEach((slide, i) => {
                     slide.classList.remove('active');
                     document.querySelectorAll('.dot')[i].classList.remove('active');
                 });
-                
+
                 slides[index].classList.add('active');
                 document.querySelectorAll('.dot')[index].classList.add('active');
                 currentSlideIndex = index;
-                
+
                 updateProgressBar();
                 updateButtonState();
             }
-            
+
             function updateProgressBar() {
                 const progress = ((currentSlideIndex + 1) / totalSlides) * 100;
                 progressBar.style.width = `${progress}%`;
             }
-            
+
             function updateButtonState() {
                 prevBtn.disabled = currentSlideIndex === 0;
                 nextBtn.disabled = currentSlideIndex === totalSlides - 1;
-                
+
                 // Optional: change button text for last slide
                 if (currentSlideIndex === totalSlides - 1) {
                     nextBtn.textContent = 'Finish';
@@ -586,10 +678,11 @@
                     nextBtn.textContent = 'Next';
                 }
             }
-            
+
             // Initialize button state
             updateButtonState();
         });
     </script>
 </body>
+
 </html>
